@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
+    [SerializeField] private float runSpeed = 5f;
     private float x;
     private float y;
 
@@ -14,9 +15,12 @@ public class Player : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
     private Vector2 input;
+
     private bool moving;
     private bool jump;
     private bool crawl;
+    private bool run;
+    
 
     //Animations states
     private string X_POS = "X";
@@ -24,6 +28,7 @@ public class Player : MonoBehaviour
     private string MOVING_ANIMATION = "Moving";
     private string CRAWL_ANIMATION = "Crawl";
     private string JUMP_ANIMATION = "Jump";
+    private string RUN_ANIMATION = "Run";
 
     private void Awake()
     {
@@ -51,7 +56,14 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.velocity = input * speed;
+        if (run)
+        {
+            body.velocity = input * runSpeed;
+        }
+        else
+        {
+            body.velocity = input * speed;
+        }
     }
     private void Animate()
     {
@@ -85,6 +97,16 @@ public class Player : MonoBehaviour
             crawl = false;
         }
 
+        // run animation
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            run = true;
+        }
+        else
+        {
+            run = false;
+        }
+
         if (moving)
         {
             anim.SetFloat(X_POS, x);
@@ -102,6 +124,7 @@ public class Player : MonoBehaviour
         anim.SetBool(MOVING_ANIMATION, moving);
         anim.SetBool(CRAWL_ANIMATION, crawl);
         anim.SetBool(JUMP_ANIMATION, jump);
+        anim.SetBool(RUN_ANIMATION, run);
 
     }
 }
