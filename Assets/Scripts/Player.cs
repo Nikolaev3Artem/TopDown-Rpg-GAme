@@ -1,24 +1,29 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveForce = 10f;
-    [SerializeField] private float jumpForce = 11f;
-    private float movementX;
-    private float movementY;
-    private bool crawl = false;
+    [SerializeField] private float speed = 3f;
+    private float x;
+    private float y;
 
     private Rigidbody2D body;
     private Animator anim;
     private SpriteRenderer sr;
+    private Vector2 input;
+    private bool moving;
+    private bool jump;
+    private bool crawl;
 
     //Animations states
-    private string WALK_UP_ANIMATION = "Walk_Up";
-    private string WALK_DOWN_ANIMATION = "Walk_Down";
-    private string WALK_SIDE_ANIMATION = "Walk_Side";
-    private string CRAWL_UP_ANIMATION = "Crawl_Up";
-    private string CRAWL_DOWN_ANIMATION = "Crawl_Down";
-    private string CRAWL_SIDE_ANIMATION = "Crawl_Side";
+    private string X_POS = "X";
+    private string Y_POS = "Y";
+    private string MOVING_ANIMATION = "Moving";
+    private string CRAWL_ANIMATION = "Crawl";
+    private string JUMP_ANIMATION = "Jump";
 
     private void Awake()
     {
@@ -27,19 +32,51 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
+    private void GetInput()
     {
-        PlayerMoveKeyboard();
-        AnimatePlayer();
+        x = Input.GetAxisRaw("Horizontal");
+        y = Input.GetAxisRaw("Vertical");
+
+        input = new Vector2(x, y);
+        input.Normalize();
     }
 
-    void PlayerMoveKeyboard()
+
+    
+    private void Update()
     {
-        movementX = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(movementX, 0f, 0f) * Time.deltaTime * moveForce;
-        movementY = Input.GetAxisRaw("Vertical");
-        transform.position += new Vector3(0f, movementY, 0f) * Time.deltaTime * moveForce;
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+        GetInput();
+        Animate();
+    }
+
+    private void FixedUpdate()
+    {
+        body.velocity = input * speed;
+    }
+    private void Animate()
+    {
+        // moving our character
+        if(input.magnitude > 0.1f || input.magnitude < -0.1f)
+        {
+            moving = true;
+        }
+        else
+        {
+            moving = false;
+        }
+
+        // jump animation
+        if (Input.GetKey(KeyCode.Space))
+        {
+            jump = true;
+        }
+        else
+        {
+            jump = false;
+        }
+
+        // crawl animation
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             crawl = true;
         }
@@ -48,72 +85,23 @@ public class Player : MonoBehaviour
             crawl = false;
         }
 
-    }
-
-    void AnimatePlayer()
-    {
-        if (movementY > 0)
+        if (moving)
         {
-            if (crawl != false)
-            {
-                anim.SetBool(CRAWL_UP_ANIMATION, true);
-            }
-            else
-            {
-                anim.SetBool(WALK_UP_ANIMATION, true);
-            }
-
-        }
-        else if (movementY < 0)
-        {
-            if (crawl != false)
-            {
-                anim.SetBool(CRAWL_DOWN_ANIMATION, true); 
-            }
-            else
-            {
-                anim.SetBool(WALK_DOWN_ANIMATION, true);
-            }
-
-    }
-        else
-        {
-            anim.SetBool(WALK_UP_ANIMATION, false);
-            anim.SetBool(WALK_DOWN_ANIMATION, false);
-            anim.SetBool(CRAWL_UP_ANIMATION, false);
-            anim.SetBool(CRAWL_DOWN_ANIMATION, false);
-
+            anim.SetFloat(X_POS, x);
+            anim.SetFloat(Y_POS, y);
         }
 
-        if (movementX > 0)
+        if(x < 0)
         {
-            if(crawl != false)
-            {
-                anim.SetBool(CRAWL_SIDE_ANIMATION, true);
-            }
-            else
-            {
-                anim.SetBool(CRAWL_SIDE_ANIMATION, false);
-                anim.SetBool(WALK_SIDE_ANIMATION, true);
-            }
-            sr.flipX = true;
-        }
-        else if(movementX < 0)
-        {
-            if (crawl != false)
-            {
-                anim.SetBool(CRAWL_SIDE_ANIMATION, true);
-            }
-            else
-            {
-               anim.SetBool(WALK_SIDE_ANIMATION, true);
-            }
             sr.flipX = false;
         }
-        else
+        else if (x > 0)
         {
-            anim.SetBool(CRAWL_SIDE_ANIMATION, false);
-            anim.SetBool(WALK_SIDE_ANIMATION, false);
+            sr.flipX = true;
         }
+        anim.SetBool(MOVING_ANIMATION, moving);
+        anim.SetBool(CRAWL_ANIMATION, crawl);
+        anim.SetBool(JUMP_ANIMATION, jump);
+
     }
 }
