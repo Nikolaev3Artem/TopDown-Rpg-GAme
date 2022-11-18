@@ -27,7 +27,7 @@ public class Fox : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-
+ 
     private void Update()
     {
         if(Vector3.Distance(player.transform.position, enemy.transform.position) <= 5f)

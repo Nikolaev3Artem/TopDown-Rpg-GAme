@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
     private Vector2 input;
+    public GameObject player;
+    public GameObject enemy;
 
     private bool moving;
     private bool jump;
@@ -125,5 +127,13 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(JUMP_ANIMATION, jump);
         anim.SetBool(RUN_ANIMATION, run);
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D enemy)
+    {
+        if (enemy.CompareTag("Enemy"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
