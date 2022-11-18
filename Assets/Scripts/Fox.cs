@@ -6,7 +6,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Fox : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject enemy;
+    [SerializeField] Transform Player;
 
     private NavMeshAgent agent;
     private Animator anim;
@@ -20,7 +22,7 @@ public class Fox : MonoBehaviour
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
         
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -28,14 +30,21 @@ public class Fox : MonoBehaviour
 
     private void Update()
     {
-        agent.SetDestination(target.position);
-        anim.SetBool(RUN_ANIMATION, true);
-        Flip();
+        if(Vector3.Distance(player.transform.position, enemy.transform.position) <= 5f)
+        {
+            agent.SetDestination(Player.position);
+            anim.SetBool(RUN_ANIMATION, true);
+            Flip();
+        }
+        else
+        {
+            anim.SetBool(RUN_ANIMATION, false);
+        }
     }
 
     private void Flip()
     {
-        if (target.position.x < 0)
+        if (Player.position.x < 0)
         {
             sr.flipX = true;
         }
@@ -44,4 +53,5 @@ public class Fox : MonoBehaviour
             sr.flipX = false;
         }
     }
+
 }
