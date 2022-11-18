@@ -193,3 +193,4 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 8266530564938318187}
   Player: {fileID: 0}
+  Enemy: {fileID: 8266530564938318181}

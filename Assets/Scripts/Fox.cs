@@ -1,29 +1,34 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Fox : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject enemy;
-    [SerializeField] Transform Player;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private Transform Player;
+    [SerializeField] private Transform Enemy;
 
     private NavMeshAgent agent;
     private Animator anim;
     private SpriteRenderer sr;
 
-    private string RUN_ANIMATION = "Run";
-
+    private string RUN_ANIMATION = "isChazing";
+    private float enemy_position_x;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
+        player = GameObject.FindGameObjectWithTag("Player");
         Player = GameObject.FindGameObjectWithTag("Player").transform;
-        
+
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -44,13 +49,15 @@ public class Fox : MonoBehaviour
 
     private void Flip()
     {
-        if (Player.position.x < 0)
+        if (Enemy.position.x < enemy_position_x)
         {
             sr.flipX = true;
+            enemy_position_x = Enemy.position.x;
         }
-        else
+        else if(Enemy.position.x > enemy_position_x)
         {
             sr.flipX = false;
+            enemy_position_x = Enemy.position.x;
         }
     }
 
