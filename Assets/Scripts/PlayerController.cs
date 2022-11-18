@@ -20,11 +20,10 @@ public class PlayerController : MonoBehaviour
     private bool jump;
     private bool crawl;
     private bool run;   
-    
-
-    //Animations states
     private string X_POS = "X";
     private string Y_POS = "Y";
+
+    //Animations states
     private string MOVING_ANIMATION = "Moving";
     private string CRAWL_ANIMATION = "Crawl";
     private string JUMP_ANIMATION = "Jump";
