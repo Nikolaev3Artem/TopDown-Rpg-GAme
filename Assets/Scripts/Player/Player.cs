@@ -10,7 +10,7 @@ public class Player : CharacterBlueprint
         Name = name;
         Health = health;
         CurrentHealth = currentHealth;
-        Damage = damage;
+        AttackDamage = damage;
         Stamina = stamina;
     }
 
@@ -18,12 +18,6 @@ public class Player : CharacterBlueprint
     {
         this.Info();
         SetHealth();
-    }
-
-    public void Update()
-    {
-        TakeDamage();
-        CheckHealth();
     }
 
 }

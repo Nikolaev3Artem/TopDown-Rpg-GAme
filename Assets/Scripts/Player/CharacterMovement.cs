@@ -131,12 +131,4 @@ public class CharacterMovement : MonoBehaviour
         anim.SetBool(RUN_ANIMATION, run);
 
     }
-
-    private void OnTriggerEnter2D(Collider2D enemy)
-    {
-        if (enemy.CompareTag("Enemy"))
-        {
-            gameObject.SetActive(false);
-        }
-    }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Fox : MonoBehaviour
+public class Fox : EnemyBlueprint
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
@@ -18,8 +18,20 @@ public class Fox : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
 
-    private string RUN_ANIMATION = "isChazing";
+    private string CHAZING_ANIMATION = "isChazing";
     private float enemy_position_x;
+
+
+
+    public Fox(string name, int health, int currentHealth, int damage, int stamina)
+    {
+        Name = name;
+        Health = health;
+        CurrentHealth = currentHealth;
+        AttackDamage = damage;
+        Stamina = stamina;
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -31,20 +43,22 @@ public class Fox : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        EnemySetHealth();
     }
  
     private void Update()
     {
-        if(Vector3.Distance(player.transform.position, enemy.transform.position) <= 5f)
+        if (Vector3.Distance(player.transform.position, enemy.transform.position) <= 5f)
         {
             agent.SetDestination(Player.position);
-            anim.SetBool(RUN_ANIMATION, true);
+            anim.SetBool(CHAZING_ANIMATION, true);
             Flip();
         }
         else
         {
-            anim.SetBool(RUN_ANIMATION, false);
+            anim.SetBool(CHAZING_ANIMATION, false);
         }
+        
     }
 
     private void Flip()

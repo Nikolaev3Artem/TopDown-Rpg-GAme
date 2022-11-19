@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterBlueprint : MonoBehaviour
+public class EnemyBlueprint : MonoBehaviour
 {
     [SerializeField] private string _name;
     [SerializeField] private int _health;
@@ -66,9 +66,8 @@ public class CharacterBlueprint : MonoBehaviour
         }
     }
 
-
-    public CharacterBlueprint() { }
-    public CharacterBlueprint(string name, int health, int currentHealth,int damage, int stamina)
+    public EnemyBlueprint() { }
+    public EnemyBlueprint(string name, int health, int currentHealth, int damage, int stamina)
     {
         Name = name;
         Health = health;
@@ -82,26 +81,26 @@ public class CharacterBlueprint : MonoBehaviour
         Debug.Log("Name:" + Name + ", Health is:" + Health + ", Damage is:" + AttackDamage + ", Stamina is:" + Stamina);
     }
 
-    public void SetHealth()
+    public void EnemySetHealth()
     {
         CurrentHealth = Health;
         healthBar.SetMaxHealth(Health);
     }
-    public void TakeDamage(int damage)
+    public void EnemyTakeDamage(int damage)
     {
         CurrentHealth -= damage;
         healthBar.SetHealth(_currentHealth);
         if (CurrentHealth <= 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D enemy)
     {
-        if (enemy.gameObject.TryGetComponent<Fox>(out Fox enemyComponent))
+        if(enemy.gameObject.TryGetComponent<Player>(out Player enemyComponent))
         {
-            enemyComponent.EnemyTakeDamage(AttackDamage);
+            enemyComponent.TakeDamage(AttackDamage);
         }
     }
 }
