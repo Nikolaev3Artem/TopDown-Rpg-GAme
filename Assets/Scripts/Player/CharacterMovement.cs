@@ -4,10 +4,11 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerController : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private float normalSpeed = 3f;
     [SerializeField] private float runSpeed = 5f;
+    [SerializeField] private float crawlSpeed = 2f;
     private float x;
     private float y;
 
@@ -15,13 +16,11 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
     private Vector2 input;
-    public GameObject player;
-    public GameObject enemy;
 
     private bool moving;
     private bool jump;
     private bool crawl;
-    private bool run;   
+    private bool run;
     private string X_POS = "X";
     private string Y_POS = "Y";
 
@@ -48,7 +47,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    
+
     private void Update()
     {
         GetInput();
@@ -61,15 +60,19 @@ public class PlayerController : MonoBehaviour
         {
             body.velocity = input * runSpeed;
         }
+        else if (crawl)
+        {
+            body.velocity = input * crawlSpeed;
+        }
         else
         {
-            body.velocity = input * speed;
+            body.velocity = input * normalSpeed;
         }
     }
     private void Animate()
     {
         // moving our character
-        if(input.magnitude > 0.1f || input.magnitude < -0.1f)
+        if (input.magnitude > 0.1f || input.magnitude < -0.1f)
         {
             moving = true;
         }
@@ -114,7 +117,7 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat(Y_POS, y);
         }
 
-        if(x < 0)
+        if (x < 0)
         {
             sr.flipX = false;
         }
