@@ -1,14 +1,23 @@
 using UnityEngine;
+using UnityEngine.Windows;
+using Input = UnityEngine.Input;
+
 
 public class CharacterBlueprint : MonoBehaviour
 {
+
     [SerializeField] private string _name;
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
     [SerializeField] private int _stamina;
+    [SerializeField] private int _normalSpeed;
+
+    private bool canRun;
+    public int _currentStamina;
     private int _currentHealth;
 
     public HealthBar healthBar;
+    public StaminaBar staminaBar;
 
     public string Name
     {
@@ -30,6 +39,17 @@ public class CharacterBlueprint : MonoBehaviour
         set
         {
             _health = value;
+        }
+    }
+    public int CurrentHealth
+    {
+        get
+        {
+            return _currentHealth;
+        }
+        set
+        {
+            _currentHealth = value;
         }
     }
     public int AttackDamage
@@ -54,38 +74,43 @@ public class CharacterBlueprint : MonoBehaviour
             _stamina = value;
         }
     }
-    public int CurrentHealth
+    public int CurrentStamina
     {
         get
         {
-            return _currentHealth;
+            return _currentStamina;
         }
         set
         {
-            _currentHealth = value;
+            _currentStamina = value;
         }
     }
+    
 
 
     public CharacterBlueprint() { }
-    public CharacterBlueprint(string name, int health, int currentHealth,int damage, int stamina)
+    public CharacterBlueprint(string name, int health, int currentHealth,int damage, int stamina, int currentStamina,int normalSpeed)
     {
         Name = name;
         Health = health;
         CurrentHealth = currentHealth;
         AttackDamage = damage;
         Stamina = stamina;
+        CurrentStamina = currentStamina;
     }
-
     public void Info()
     {
         Debug.Log("Name:" + Name + ", Health is:" + Health + ", Damage is:" + AttackDamage + ", Stamina is:" + Stamina);
     }
-
     public void SetHealth()
     {
         CurrentHealth = Health;
         healthBar.SetMaxHealth(Health);
+    }
+    public void SetStamina()
+    {
+        CurrentStamina = Stamina;
+        staminaBar.SetMaxStamina(Stamina);
     }
     public void TakeDamage(int damage)
     {
@@ -95,6 +120,19 @@ public class CharacterBlueprint : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+    public void LoseStamina()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            CurrentStamina -= 50;
+            if(CurrentStamina <= 0)
+            {
+                CurrentStamina = 0;
+            }
+            staminaBar.SetStamina(CurrentStamina);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D enemy)

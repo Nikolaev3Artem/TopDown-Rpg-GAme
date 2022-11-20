@@ -6,6 +6,7 @@ public class EnemyBlueprint : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
     [SerializeField] private int _stamina;
+
     private int _currentHealth;
 
     public HealthBar healthBar;

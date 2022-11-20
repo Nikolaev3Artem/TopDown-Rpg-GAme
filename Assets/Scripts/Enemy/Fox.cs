@@ -54,10 +54,6 @@ public class Fox : EnemyBlueprint
             anim.SetBool(CHAZING_ANIMATION, true);
             Flip();
         }
-        else
-        {
-            anim.SetBool(CHAZING_ANIMATION, false);
-        }
         
     }
 
