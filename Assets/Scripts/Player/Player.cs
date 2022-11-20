@@ -25,6 +25,7 @@ public class Player : CharacterBlueprint
 
     public void Update()
     {
-        LoseStamina();
+        UseStaminaWhenRun();
+        UseStaminaWhenJump();
     }
 }

@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && staminaBar.slider.value != 0)
         {
             jump = true;
         }

@@ -121,18 +121,29 @@ public class CharacterBlueprint : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void LoseStamina()
+    public void UseStaminaWhenRun()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            CurrentStamina -= 50;
+            CurrentStamina -= 10;
             if(CurrentStamina <= 0)
             {
                 CurrentStamina = 0;
             }
             staminaBar.SetStamina(CurrentStamina);
         }
-
+    }
+    public void UseStaminaWhenJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CurrentStamina -= 30;
+            if (CurrentStamina <= 0)
+            {
+                CurrentStamina = 0;
+            }
+            staminaBar.SetStamina(CurrentStamina);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D enemy)
