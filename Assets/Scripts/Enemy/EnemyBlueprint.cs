@@ -1,5 +1,8 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -19,8 +22,10 @@ public class EnemyBlueprint : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private SpriteRenderer sr;
+   
 
     public HealthBar healthBar;
+    [SerializeField] TextMeshProUGUI m_Object;
     public string Name
     {
         get
@@ -94,6 +99,8 @@ public class EnemyBlueprint : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         FindPlayer();
         EnemySetHealth();
+        m_Object.text = Name;
+
     }
     public void Info()
     {

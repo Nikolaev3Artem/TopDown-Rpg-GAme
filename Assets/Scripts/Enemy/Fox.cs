@@ -15,7 +15,7 @@ public class Fox : EnemyBlueprint
         AttackDamage = damage;
         Stamina = stamina;
     }
- 
+
     private void Update()
     {
         ChazingBehaviour();
