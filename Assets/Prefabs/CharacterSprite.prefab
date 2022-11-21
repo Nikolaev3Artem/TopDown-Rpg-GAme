@@ -730,6 +730,7 @@ GameObject:
   - component: {fileID: 2525375963356622660}
   - component: {fileID: 2525375963356622681}
   - component: {fileID: 1974597266}
+  - component: {fileID: 1974597273}
   m_Layer: 0
   m_Name: CharacterSprite
   m_TagString: Player
@@ -859,14 +860,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047b11a8ec9739d46bffdba3d8000283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 3
-  runSpeed: 5
-  crawlSpeed: 1.5
-  idle: 0
   _name: Itz_Maze
   _health: 100
   _attackDamage: 20
   _stamina: 100
+  _normalSpeed: 0
   _currentStamina: 100
   healthBar: {fileID: 28130263}
   staminaBar: {fileID: 1808165912}
@@ -936,3 +934,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97300017, y: 1.3612487}
   m_EdgeRadius: 0
+--- !u!114 &1974597273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525375963356622657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8ffdf7e9caa4c4f93acfc102c4d7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2525375963356622683}
+  staminaBar: {fileID: 1808165912}
+  walkSpeed: 3
+  runSpeed: 6
+  crawlSpeed: 1

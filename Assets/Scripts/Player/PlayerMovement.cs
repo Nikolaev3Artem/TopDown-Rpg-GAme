@@ -8,7 +8,6 @@ using static UnityEngine.GraphicsBuffer;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
-
     private string WALK_ANIMATION = "Moving";
     private string CRAWL_ANIMATION = "Crawl";
     private string JUMP_ANIMATION = "Jump";

@@ -552,8 +552,8 @@ MonoBehaviour:
   _health: 100
   _attackDamage: 5
   _stamina: 100
-  healthBar: {fileID: 54387566}
   player: {fileID: 0}
   enemy: {fileID: 8266530564938318187}
   Player: {fileID: 0}
   Enemy: {fileID: 8266530564938318181}
+  healthBar: {fileID: 54387566}

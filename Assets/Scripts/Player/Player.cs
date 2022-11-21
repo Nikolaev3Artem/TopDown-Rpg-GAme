@@ -22,10 +22,4 @@ public class Player : CharacterBlueprint
         SetHealth();
         SetStamina();
     }
-
-    public void Update()
-    {
-        //UseStaminaWhenRun();
-        //UseStaminaWhenJump();
-    }
 }
