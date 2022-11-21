@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
@@ -9,11 +10,11 @@ public class CharacterBlueprint : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
-    [SerializeField] private int _stamina;
+    [SerializeField] private float _stamina;
     [SerializeField] private int _normalSpeed;
 
     private bool canRun;
-    public int _currentStamina;
+    public float _currentStamina;
     private int _currentHealth;
 
     public HealthBar healthBar;
@@ -63,7 +64,7 @@ public class CharacterBlueprint : MonoBehaviour
             _attackDamage = value;
         }
     }
-    public int Stamina
+    public float Stamina
     {
         get
         {
@@ -74,7 +75,7 @@ public class CharacterBlueprint : MonoBehaviour
             _stamina = value;
         }
     }
-    public int CurrentStamina
+    public float CurrentStamina
     {
         get
         {
@@ -89,7 +90,7 @@ public class CharacterBlueprint : MonoBehaviour
 
 
     public CharacterBlueprint() { }
-    public CharacterBlueprint(string name, int health, int currentHealth,int damage, int stamina, int currentStamina,int normalSpeed)
+    public CharacterBlueprint(string name, int health, int currentHealth,int damage, float stamina, float currentStamina)
     {
         Name = name;
         Health = health;
@@ -121,23 +122,15 @@ public class CharacterBlueprint : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void UseStaminaWhenRun()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            CurrentStamina -= 10;
-            if(CurrentStamina <= 0)
-            {
-                CurrentStamina = 0;
-            }
-            staminaBar.SetStamina(CurrentStamina);
-        }
-    }
     public void UseStaminaWhenJump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CurrentStamina -= 30;
+            if (CurrentStamina >= 30)
+            {
+                CurrentStamina -= 30;
+            }
+            
             if (CurrentStamina <= 0)
             {
                 CurrentStamina = 0;

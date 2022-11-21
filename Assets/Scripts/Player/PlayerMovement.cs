@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private string X_POS = "X";
     private string Y_POS = "Y";
 
+    public Player player;
     private Animator anim;
     private Rigidbody2D rb;
     private Vector2 input;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        player = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
@@ -58,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = input * walkSpeed;
         }
+
     }
 
     private void GetInput()
@@ -70,10 +73,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Walk()
     {
-        Flip();
         Run();
         Crawl();
         Jump();
+        Flip();
         if (input.magnitude > 0.1f || input.magnitude < -0.1f)
         {
             walk = true;
@@ -92,18 +95,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void Run()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && staminaBar.slider.value != 0)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             run = true;
         }
-
         else
         {
             run = false;
         }
+
         if (run)
         {
+            player.CurrentStamina -= Time.deltaTime * 10f;
             anim.SetBool(RUN_ANIMATION, run);
+            staminaBar.SetStamina(player.CurrentStamina);
+            if(player.CurrentStamina <= 0)
+            {
+                run = false;
+                player.CurrentStamina = 0;
+
+            }
+        }
+        else if(player.CurrentStamina < player.Stamina)
+        {
+            player.CurrentStamina += Time.deltaTime * 10f;
+            staminaBar.SetStamina(player.CurrentStamina);
         }
         anim.SetBool(RUN_ANIMATION, run);
     }
@@ -127,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKey(KeyCode.Space) && staminaBar.slider.value != 0)
+        if (Input.GetKey(KeyCode.Space) && staminaBar.slider.value != 0 && staminaBar.slider.value >= 30)
         {
             jump = true;
         }

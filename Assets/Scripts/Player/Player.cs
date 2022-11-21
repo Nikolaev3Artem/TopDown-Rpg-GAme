@@ -5,7 +5,7 @@ using Input = UnityEngine.Input;
 
 public class Player : CharacterBlueprint
 {
-    public Player(string name, int health, int currentHealth, int damage, int stamina, int currentStamina)
+    public Player(string name, int health, int currentHealth, int damage, float stamina, float currentStamina)
     {
         Name = name;
         Health = health;
@@ -25,7 +25,7 @@ public class Player : CharacterBlueprint
 
     public void Update()
     {
-        UseStaminaWhenRun();
-        UseStaminaWhenJump();
+        //UseStaminaWhenRun();
+        //UseStaminaWhenJump();
     }
 }
