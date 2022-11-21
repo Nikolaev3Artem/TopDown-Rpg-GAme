@@ -32,13 +32,12 @@ RectTransform:
   m_Children:
   - {fileID: 950960658}
   - {fileID: 1971019852}
-  - {fileID: 8886043994218286654}
   m_Father: {fileID: 796139486}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 111.5, y: 159.3}
+  m_AnchoredPosition: {x: -2, y: 10}
   m_SizeDelta: {x: 35.55, y: 6.449}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54387567
@@ -136,14 +135,15 @@ RectTransform:
   m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8886043994218286654}
   - {fileID: 54387565}
   m_Father: {fileID: 8266530564938318181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.0257142, y: -1.3714284}
-  m_SizeDelta: {x: 1920.0001, y: 1080}
+  m_AnchoredPosition: {x: 0.02755, y: 0.01268}
+  m_SizeDelta: {x: 41.84142, y: 43.42302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &796139489
 Canvas:
@@ -383,18 +383,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486219605943243094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 54387565}
-  m_RootOrder: 2
+  m_Father: {fileID: 796139486}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000019073486, y: 0.51049995}
-  m_SizeDelta: {x: -26.02, y: -1.021}
+  m_AnchoredPosition: {x: -1.9999, y: 16.88}
+  m_SizeDelta: {x: -6.2917, y: -36.113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5200541550712777166
 CanvasRenderer:
@@ -457,8 +457,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.3297224, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -692,5 +692,5 @@ MonoBehaviour:
   enemy: {fileID: 8266530564938318187}
   Player: {fileID: 0}
   Enemy: {fileID: 8266530564938318181}
+  NameOutPut: {fileID: 7984255405438556196}
   healthBar: {fileID: 54387566}
-  enemyName: {fileID: 7984255405438556196}

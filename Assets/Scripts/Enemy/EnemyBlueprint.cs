@@ -12,20 +12,21 @@ public class EnemyBlueprint : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
     [SerializeField] private int _stamina;
+
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform Player;
     [SerializeField] private Transform Enemy;
+    [SerializeField] private TextMeshProUGUI NameOutPut;
+
+
     private float enemy_position_x;
     private int _currentHealth;
 
     private NavMeshAgent agent;
     private Animator anim;
     private SpriteRenderer sr;
-   
-
     public HealthBar healthBar;
-    [SerializeField] TextMeshProUGUI m_Object;
     public string Name
     {
         get
@@ -99,8 +100,12 @@ public class EnemyBlueprint : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         FindPlayer();
         EnemySetHealth();
-        m_Object.text = Name;
+        NameOutPut.text = Name;
 
+    }
+    private void Update()
+    {
+        ChazingBehaviour();
     }
     public void Info()
     {

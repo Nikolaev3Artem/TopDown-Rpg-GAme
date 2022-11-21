@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
@@ -12,6 +13,7 @@ public class CharacterBlueprint : MonoBehaviour
     [SerializeField] private int _attackDamage;
     [SerializeField] private float _stamina;
     [SerializeField] private int _normalSpeed;
+    [SerializeField] private TextMeshProUGUI NameOutPut;
 
     private bool canRun;
     public float _currentStamina;
@@ -99,6 +101,12 @@ public class CharacterBlueprint : MonoBehaviour
         Stamina = stamina;
         CurrentStamina = currentStamina;
     }
+    public void Start()
+    {
+        SetHealth();
+        SetStamina();
+        NameOutPut.text = Name;
+    }
     public void Info()
     {
         Debug.Log("Name:" + Name + ", Health is:" + Health + ", Damage is:" + AttackDamage + ", Stamina is:" + Stamina);
@@ -122,23 +130,6 @@ public class CharacterBlueprint : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void UseStaminaWhenJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (CurrentStamina >= 30)
-            {
-                CurrentStamina -= 30;
-            }
-            
-            if (CurrentStamina <= 0)
-            {
-                CurrentStamina = 0;
-            }
-            staminaBar.SetStamina(CurrentStamina);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D enemy)
     {
         if (enemy.gameObject.TryGetComponent<Fox>(out Fox enemyComponent))

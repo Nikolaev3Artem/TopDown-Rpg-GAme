@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             run = false;
         }
 
-        if (run)
+        if (run && player.CurrentStamina >= 10)
         {
             player.CurrentStamina -= Time.deltaTime * 10f;
             anim.SetBool(RUN_ANIMATION, run);
@@ -112,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 run = false;
                 player.CurrentStamina = 0;
-
             }
         }
         else if(player.CurrentStamina < player.Stamina)
@@ -142,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKey(KeyCode.Space) && staminaBar.slider.value != 0 && staminaBar.slider.value >= 30)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
         }
@@ -152,7 +151,17 @@ public class PlayerMovement : MonoBehaviour
         }
         if (jump)
         {
-            anim.SetBool(JUMP_ANIMATION, jump);
+            if(player.CurrentStamina >= 30f)
+            {
+                player.CurrentStamina -= 30f;
+                anim.SetBool(JUMP_ANIMATION, jump);
+                staminaBar.SetStamina(player.CurrentStamina);
+            }
+            else
+            {
+                jump = false;
+            }
+
         }
         anim.SetBool(JUMP_ANIMATION, jump);
     }

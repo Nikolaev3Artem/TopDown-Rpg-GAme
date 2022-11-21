@@ -14,12 +14,4 @@ public class Player : CharacterBlueprint
         Stamina = stamina;
         CurrentStamina = currentStamina;
     }
-
-
-    public void Start()
-    {
-        this.Info();
-        SetHealth();
-        SetStamina();
-    }
 }
