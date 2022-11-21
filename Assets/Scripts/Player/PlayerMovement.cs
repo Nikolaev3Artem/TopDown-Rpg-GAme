@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -103,9 +101,9 @@ public class PlayerMovement : MonoBehaviour
             run = false;
         }
 
-        if (run && player.CurrentStamina >= 10)
+        if (run)
         {
-            player.CurrentStamina -= Time.deltaTime * 10f;
+            player.CurrentStamina -= Time.deltaTime * 20f;
             anim.SetBool(RUN_ANIMATION, run);
             staminaBar.SetStamina(player.CurrentStamina);
             if(player.CurrentStamina <= 0)
@@ -116,8 +114,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(player.CurrentStamina < player.Stamina)
         {
-            player.CurrentStamina += Time.deltaTime * 10f;
+            player.CurrentStamina += Time.deltaTime * 20f;
             staminaBar.SetStamina(player.CurrentStamina);
+            if(player.CurrentStamina > player.Stamina)
+            {
+                player.CurrentStamina = player.Stamina;
+            }
         }
         anim.SetBool(RUN_ANIMATION, run);
     }

@@ -1,8 +1,6 @@
-using System.Collections;
+using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Windows;
-using Input = UnityEngine.Input;
 
 
 public class CharacterBlueprint : MonoBehaviour
@@ -11,12 +9,12 @@ public class CharacterBlueprint : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
-    [SerializeField] private float _stamina;
-    [SerializeField] private int _normalSpeed;
+    [SerializeField] private int _stamina;
     [SerializeField] private TextMeshProUGUI NameOutPut;
+    [SerializeField] private TextMeshProUGUI HealthOutput;
+    [SerializeField] private TextMeshProUGUI StaminaOutput;
 
-    private bool canRun;
-    public float _currentStamina;
+    public double _currentStamina;
     private int _currentHealth;
 
     public HealthBar healthBar;
@@ -66,7 +64,7 @@ public class CharacterBlueprint : MonoBehaviour
             _attackDamage = value;
         }
     }
-    public float Stamina
+    public int Stamina
     {
         get
         {
@@ -77,11 +75,11 @@ public class CharacterBlueprint : MonoBehaviour
             _stamina = value;
         }
     }
-    public float CurrentStamina
+    public double CurrentStamina
     {
         get
         {
-            return _currentStamina;
+            return Math.Round(_currentStamina,1);
         }
         set
         {
@@ -92,7 +90,7 @@ public class CharacterBlueprint : MonoBehaviour
 
 
     public CharacterBlueprint() { }
-    public CharacterBlueprint(string name, int health, int currentHealth,int damage, float stamina, float currentStamina)
+    public CharacterBlueprint(string name, int health, int currentHealth,int damage, int stamina, double currentStamina)
     {
         Name = name;
         Health = health;
@@ -106,6 +104,11 @@ public class CharacterBlueprint : MonoBehaviour
         SetHealth();
         SetStamina();
         NameOutPut.text = Name;
+    }
+    public void Update()
+    {
+        HealthOutput.text = CurrentHealth.ToString() + "/" + Health.ToString();
+        StaminaOutput.text = CurrentStamina.ToString() + "/" + Stamina.ToString();
     }
     public void Info()
     {

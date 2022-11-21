@@ -5,14 +5,14 @@ public class StaminaBar : MonoBehaviour
 {
     public Slider slider;
 
-    public void SetMaxStamina(float stamina)
+    public void SetMaxStamina(double stamina)
     {
-        slider.maxValue = stamina;
-        slider.value = stamina;
+        slider.maxValue = (float)stamina;
+        slider.value = (float)stamina;
     }
 
-    public void SetStamina(float stamina)
+    public void SetStamina(double stamina)
     {
-        slider.value = stamina;
+        slider.value = (float)stamina;
     }
 }
