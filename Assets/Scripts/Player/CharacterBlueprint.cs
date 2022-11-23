@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CharacterBlueprint : MonoBehaviour
 {
-
     [SerializeField] private string _name;
     [SerializeField] private int _health;
     [SerializeField] private int _attackDamage;
@@ -19,6 +18,7 @@ public class CharacterBlueprint : MonoBehaviour
 
     public HealthBar healthBar;
     public StaminaBar staminaBar;
+
 
     public string Name
     {
@@ -110,6 +110,10 @@ public class CharacterBlueprint : MonoBehaviour
         HealthOutput.text = CurrentHealth.ToString() + "/" + Health.ToString();
         StaminaOutput.text = CurrentStamina.ToString() + "/" + Stamina.ToString();
     }
+    public void FixedUpdate()
+    {
+        
+    }
     public void Info()
     {
         Debug.Log("Name:" + Name + ", Health is:" + Health + ", Damage is:" + AttackDamage + ", Stamina is:" + Stamina);
@@ -133,7 +137,7 @@ public class CharacterBlueprint : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    private void OnTriggerEnter2D(Collider2D enemy)
+    private void OnCollisionEnter2D(Collision2D enemy)
     {
         if (enemy.gameObject.TryGetComponent<Fox>(out Fox enemyComponent))
         {

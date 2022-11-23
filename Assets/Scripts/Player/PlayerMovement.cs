@@ -1,4 +1,6 @@
 using System;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -19,10 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 input;
     private SpriteRenderer sr;
     public StaminaBar staminaBar;
+    private RaycastHit2D hit;
+    private BoxCollider2D boxCollider;
 
     [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float runSpeed = 6f;
     [SerializeField] private float crawlSpeed = 1f;
+
     private float x;
     private float y;
     private bool walk;
@@ -36,15 +41,13 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
         GetInput();
         Walk();
-    }
-    private void FixedUpdate()
-    {
-
         if (run)
         {
             rb.velocity = input * runSpeed;
@@ -57,7 +60,16 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = input * walkSpeed;
         }
-
+        hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(0, input.y), MathF.Abs(input.y * Time.deltaTime), LayerMask.GetMask("Characters","Obstacles"));
+        if (hit.collider == null)
+        {
+            transform.Translate(0, input.y * Time.deltaTime, 0);
+        }
+        hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(input.x, 0), MathF.Abs(input.x * Time.deltaTime), LayerMask.GetMask("Characters", "Obstacles"));
+        if (hit.collider == null)
+        {
+            transform.Translate(input.x * Time.deltaTime, 0, 0);
+        }
     }
 
     private void GetInput()

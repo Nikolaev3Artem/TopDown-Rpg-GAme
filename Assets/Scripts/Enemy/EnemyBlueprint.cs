@@ -160,16 +160,11 @@ public class EnemyBlueprint : MonoBehaviour
             enemy_position_x = Enemy.position.x;
         }
     }
-    private void OnTriggerEnter2D(Collider2D enemy)
+    private void OnCollisionEnter2D(Collider2D enemy)
     {
         if(enemy.gameObject.TryGetComponent<Player>(out Player enemyComponent))
         {
             enemyComponent.TakeDamage(AttackDamage);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        anim.SetBool("Hurt", false);
-    }
-
 }
