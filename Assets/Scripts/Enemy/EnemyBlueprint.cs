@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -116,20 +117,10 @@ public class EnemyBlueprint : MonoBehaviour
         CurrentHealth = Health;
         healthBar.SetMaxHealth(Health);
     }
-    public void EnemyTakeDamage(int damage)
-    {
-        CurrentHealth -= damage;
-        healthBar.SetHealth(_currentHealth);
-        anim.SetBool("Hurt", true);
-        if (CurrentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
     public void FindPlayer()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Fighter");
+        Player = GameObject.FindGameObjectWithTag("Fighter").transform;
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -160,11 +151,5 @@ public class EnemyBlueprint : MonoBehaviour
             enemy_position_x = Enemy.position.x;
         }
     }
-    private void OnCollisionEnter2D(Collider2D enemy)
-    {
-        if(enemy.gameObject.TryGetComponent<Player>(out Player enemyComponent))
-        {
-            enemyComponent.TakeDamage(AttackDamage);
-        }
-    }
+
 }

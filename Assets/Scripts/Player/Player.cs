@@ -1,17 +1,13 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 
-public class Player : CharacterBlueprint
+public class Player : Mover
 {
-    public Player(string name, int health, int currentHealth, int damage, int stamina, double currentStamina)
+    private void FixedUpdate()
     {
-        Name = name;
-        Health = health;
-        CurrentHealth = currentHealth;
-        AttackDamage = damage;
-        Stamina = stamina;
-        CurrentStamina = currentStamina;
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+
+        UpdateMotor(new Vector3(x, y, 0));
     }
 }

@@ -508,9 +508,10 @@ GameObject:
   - component: {fileID: -6709037437460668754}
   - component: {fileID: 1958140095}
   - component: {fileID: 1958140102}
+  - component: {fileID: 1534478636}
   m_Layer: 6
   m_Name: Enemie
-  m_TagString: Enemy
+  m_TagString: Fighter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -686,7 +687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Fox
   _health: 100
-  _attackDamage: 5
+  _attackDamage: 20
   _stamina: 100
   player: {fileID: 0}
   enemy: {fileID: 8266530564938318187}
@@ -694,3 +695,29 @@ MonoBehaviour:
   Enemy: {fileID: 8266530564938318181}
   NameOutPut: {fileID: 7984255405438556196}
   healthBar: {fileID: 54387566}
+--- !u!114 &1534478636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266530564938318187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb334c184686e349819761c897fbb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

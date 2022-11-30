@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Points
   - Enemy
+  - Fighter
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - Characters
   - Obstacles
-  - 
+  - Weapon
   - 
   - 
   - 
@@ -43,12 +44,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: Characters
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: Floor
     uniqueID: 4250941897
     locked: 0
-  - name: Layer 3
+  - name: Obstacles
     uniqueID: 4189426099
+    locked: 0
+  - name: Weapon
+    uniqueID: 3365879053
     locked: 0
